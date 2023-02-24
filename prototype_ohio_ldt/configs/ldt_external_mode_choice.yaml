@@ -1,0 +1,20 @@
+SPEC: ldt_external_mode_choice.csv
+COEFFICIENTS: ldt_external_mode_choice_coefficients.csv
+COEFFICIENT_TEMPLATE: ldt_external_mode_choice_coefficients_template.csv
+
+LOGIT_TYPE: NL
+
+NESTS:
+  name: root
+  coefficient: coef_nest_root
+  alternatives:
+    - DRIVE
+    - AIR
+    - name: TRANSIT
+      coefficient: coef_nest_transit
+      alternatives:
+      - WALK_TRANSIT
+      - DRIVE_TRANSIT
+
+CONSTANTS:
+  DUMMY_CONSTANT: 1

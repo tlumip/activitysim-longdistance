@@ -1,0 +1,19 @@
+# read cached skims (using numpy memmap) from output directory (memmap is faster than omx )
+# speeds it up, doesnt need to independently create skims every time during initialization
+read_skim_cache: True
+# write memmapped cached skims to output directory after reading from omx, for use in subsequent runs
+# can turn off to avoid changing time period labels and speed up a a bit
+write_skim_cache: True
+
+zone_system: 1
+
+taz_skims:
+   omx: skims.omx
+   zarr: skims.zarr
+
+skim_time_periods:
+   time_window: 1440
+   period_minutes: 60
+   periods: [0, 6, 9, 15, 18, 24] # 6=6:00-6:59, etc.
+   # need to change labels to have write_skin_cache work correctly (asim has sanity checks that each skim is in a period)
+   labels: ['OP', 'PK', 'OP', 'PK', 'OP']

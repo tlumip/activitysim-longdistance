@@ -127,3 +127,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+prototype_ohio_ldt/data/*.zip
+**/zz*.csv.gz
