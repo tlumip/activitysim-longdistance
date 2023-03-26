@@ -5,6 +5,8 @@ import logging
 
 import numpy as np
 import pandas as pd
+import sharrow as sh
+import xarray as xr
 from activitysim.core import config, estimation, logit, los, tracing, workflow
 from activitysim.core.skim_dataset import SkimDataset
 from activitysim.core.skim_dictionary import SkimDict
@@ -249,3 +251,25 @@ def get_car_dist_skim(network_los, land_use, dim3, dist_key, model_area_key):
             index=dist_array.coords["otaz"],
             columns=external_tazs,
         )
+
+
+@workflow.step
+def ldt_annotate_external_dest(
+    state: workflow.State,
+    longdist_tours: pd.DataFrame,
+    households: pd.DataFrame,
+    skim_dataset: xr.Dataset,
+):
+    households = sh.dataset.construct(households)
+    longdist_tours = sh.dataset.construct(longdist_tours)
+    home_taz = households.home_zone_id.sel(household_id=longdist_tours.household_id)
+    dest_taz = longdist_tours.external_destchoice
+    ext_dists = skim_dataset["CAR_DIST"].sel(
+        otaz=home_taz[dest_taz >= 0], dtaz=dest_taz[dest_taz >= 0], time_period="OP"
+    )
+    longdist_tours = longdist_tours.assign(
+        external_dest_dist=ext_dists.drop_vars(
+            i for i in ext_dists.coords if i != longdist_tours.single_dim.dim_name
+        )
+    )
+    state.add_table("longdist_tours", longdist_tours)

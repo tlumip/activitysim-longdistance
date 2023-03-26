@@ -230,6 +230,7 @@ models:
   - ldt_scheduling
   - ldt_internal_external
   - ldt_external_destchoice
+  - ldt_annotate_external_dest
   - ldt_external_mode_choice
   - ldt_internal_tour_destination
   - ldt_internal_mode_choice

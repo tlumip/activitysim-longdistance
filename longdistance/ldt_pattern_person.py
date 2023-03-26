@@ -214,6 +214,10 @@ def ldt_pattern_person(
     #     persons["ldt_pattern"],
     # )
 
+    # add a column with simplified person pattern
+    # TODO: remove if/when this simplified version is not needed.
+    persons["ldt_pattern_person_simplified"] = persons["ldt_pattern_person"] & 7
+
     # merging changes to persons table to the final_persons csv
     state.add_table("persons", persons)
 
