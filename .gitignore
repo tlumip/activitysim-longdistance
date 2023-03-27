@@ -129,3 +129,4 @@ dmypy.json
 .pyre/
 prototype_ohio_ldt/data/*.zip
 **/zz*.csv.gz
+_version.py
