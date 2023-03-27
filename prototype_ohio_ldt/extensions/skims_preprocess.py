@@ -33,7 +33,7 @@ def skims_preprocess(state: workflow.State):
 
     try:
         ds_check = sh.dataset.from_zarr_with_attr(os.path.join(cache_dir, skims_zarr))
-    except GroupNotFoundError:
+    except (GroupNotFoundError, FileNotFoundError):
         regenerate = True
         zarr_write_time = 0
     else:
@@ -71,7 +71,7 @@ def skims_preprocess(state: workflow.State):
                 break
 
     if not regenerate:
-        logger.warning(f"OMX files are all older than cached ZARR, using cache")
+        logger.warning("OMX files are all older than cached ZARR, using cache")
         return
 
     index_names = ("otaz", "dtaz", "time_period")
@@ -97,6 +97,9 @@ def skims_preprocess(state: workflow.State):
         tp_imap[t + 1] = i
     tp_map[-1] = tp_map[1]
     tp_imap[-1] = tp_imap[1]
+
+    if not skims_filenames:
+        raise FileNotFoundError(skims_omx_fileglob)
 
     omxs = [
         openmatrix.open_file(skims_filename, mode="r")
