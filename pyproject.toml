@@ -1,0 +1,47 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling", "hatch-vcs"]
+
+[project]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+    "activitysim",
+    "sharrow",
+]
+description = "Long distance travel components for ActivitySim"
+dynamic = ["version"]
+keywords = []
+license = "MIT"
+name = "longdistance"
+readme = "README.md"
+requires-python = ">=3.10"
+
+[tool.hatch.version]
+source = "vcs"
+
+[tool.ruff]
+ignore = [
+  "E501", # line too long, handled by black
+  "B008", # do not perform function calls in argument defaults
+  "C901", # too complex
+]
+select = [
+  "E", # pycodestyle errors
+  "W", # pycodestyle warnings
+  "F", # pyflakes
+  "I", # isort
+  "C", # flake8-comprehensions
+  "B", # flake8-bugbear
+]
+
+[tool.ruff.isort]
+known-first-party = ["longdistance"]
+
+[tool.hatch.build.hooks.vcs]
+version-file = "longdistance/_version.py"

@@ -18,7 +18,8 @@ repos:
   hooks:
     - id: black
 
-#- repo: https://github.com/PyCQA/flake8
-#  rev: 5.0.4
-#  hooks:
-#    - id: flake8
+- repo: https://github.com/charliermarsh/ruff-pre-commit
+  rev: "v0.0.194"
+  hooks:
+    - id: ruff
+      args: [--fix]
