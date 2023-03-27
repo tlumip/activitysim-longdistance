@@ -2,14 +2,10 @@
 # See full license in LICENSE.txt.
 import logging
 
-import numpy as np
 import pandas as pd
-from activitysim.core import assign, chunk, config, expressions
+from activitysim.core import expressions, workflow
 
 logger = logging.getLogger(__name__)
-
-
-from activitysim.core import workflow
 
 
 @workflow.step
@@ -17,7 +13,6 @@ def annotate_accessibility(
     state: workflow.State,
     accessibility: pd.DataFrame,
 ):
-
     """
     Annotate accessibility
     """

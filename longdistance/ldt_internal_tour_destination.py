@@ -1,16 +1,13 @@
+# ActivitySim
+# See full license in LICENSE.txt.
 import logging
 
 import pandas as pd
-from activitysim.core import estimation  # noqa: F401
-from activitysim.core import config, expressions, los, tracing, workflow
+from activitysim.core import config, expressions, los, tracing, workflow  # noqa: F401
 
 from .ldt_internal_external import LDT_IE_INTERNAL
 from .ldt_pattern import LDT_PATTERN
 from .util import tour_destination
-
-# ActivitySim
-# See full license in LICENSE.txt.
-
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +19,6 @@ def ldt_internal_tour_destination(
     persons_merged: pd.DataFrame,
     network_los: los.Network_LOS,
 ):
-
     """
     Given the tour generation from the above, each tour needs to have a
     destination, so in this case tours are the choosers (with the associated

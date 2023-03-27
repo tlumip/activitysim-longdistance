@@ -200,7 +200,17 @@ def ldt_external_mode_choice(
 
         # translate between choices and actual mode chosens
         alts = category_spec.columns
-        choices = choices.map(dict(list(zip(list(range(len(alts))), alts))))
+        choices = choices.map(
+            dict(
+                list(
+                    zip(
+                        list(range(len(alts))),
+                        alts,
+                        strict=False,
+                    )
+                )
+            )
+        )
 
         # convert choices to dataframes
         if isinstance(choices, pd.Series):
