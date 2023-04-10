@@ -270,9 +270,6 @@ def aggregate_size_terms(dest_size_terms, network_los):
     # 1       16421         2       13.0
     # 2       24251         3       14.0
 
-    # print(f"TAZ_size_terms ({TAZ_size_terms.shape})\n{TAZ_size_terms}")
-    # print(f"MAZ_size_terms ({MAZ_size_terms.shape})\n{MAZ_size_terms}")
-
     if np.issubdtype(TAZ_size_terms[DEST_TAZ], np.floating):
         raise TypeError("TAZ indexes are not integer")
 
@@ -307,12 +304,6 @@ def run_destination_sample(  # KEEP
     choosers = pd.merge(
         tours, persons_merged, left_on="person_id", right_index=True, how="left"
     )
-
-    if "ldt_start_hour" not in choosers.columns:
-        print()
-    else:
-        _temp = choosers["ldt_start_hour"]
-        print(_temp)
 
     # interaction_sample requires that choosers.index.is_monotonic_increasing
     if not choosers.index.is_monotonic_increasing:
